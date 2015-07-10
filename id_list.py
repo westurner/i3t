@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+"""
+id_list.py -- list i3wm windows, get next window id, wrap/loop around
+"""
+
+
 import json
 import subprocess
 
@@ -57,6 +63,9 @@ def main():
     else:        
         next_id = window_list[next_index]["window"]
 
-    print next_id
+    print(next_id)
+    return 0
 
-main()
+if __name__ == "__main__":
+    import sys
+    sys.exit(main())
