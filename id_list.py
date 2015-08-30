@@ -12,10 +12,10 @@ import subprocess
 Execute the given command and return the 
 output as a list of lines
 """
-def command_output(cmd):
+def command_output(cmd, shell=False):
     output = []
     if (cmd):
-        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, \
+        p = subprocess.Popen(cmd, shell=shell, stdout=subprocess.PIPE, \
                                  stderr=subprocess.STDOUT)
         for line in p.stdout.readlines():
             output.append(line.rstrip())
@@ -41,7 +41,7 @@ def find_windows(tree_dict, window_list):
 
 
 def main():
-    output = command_output("i3-msg -t get_tree")
+    output = command_output(("i3-msg","-t","get_tree"))
     tree = output_to_dict(output)
     window_list = find_windows(tree, [])
 
