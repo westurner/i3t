@@ -41,7 +41,7 @@ def find_windows(tree_dict, window_list):
 
 
 def main():
-    output = command_output(("i3-msg","-t","get_tree"))
+    output = command_output(("i3-msg", "-t", "get_tree"))
     tree = output_to_dict(output)
     window_list = find_windows(tree, [])
 
