@@ -67,7 +67,7 @@ def output_to_dict(output_list):
     return json.loads(output_string)
 
 
-def find_windows(tree_dict, window_list):
+def find_windows(tree_dict, window_list, i3barnameprefix='i3bar for output'):
     """
     Args:
         tree_dict: dict of i3 nodes
@@ -80,8 +80,8 @@ def find_windows(tree_dict, window_list):
             find_windows(node, window_list)
     else:
         if (tree_dict["layout"] != "dockarea"
-            and not tree_dict["name"].startswith("i3bar for output")
-            and not tree_dict["window"] == None):
+            and not tree_dict["name"].startswith(i3barnameprefix)
+            and not tree_dict["window"] is None):
             window_list.append(tree_dict)
     return window_list
 
@@ -89,6 +89,9 @@ def find_windows(tree_dict, window_list):
 def get_i3_window_state():
     """
     determine a window id of the 'next' or TODO 'previous' window
+
+    Returns:
+        OrderedDict: {prev: \d, current: \d, next: \d}
     """
     cmd = ("i3-msg", "-t", "get_tree")
     output = subprocess.check_output(cmd)
@@ -100,13 +103,12 @@ def get_i3_window_state():
     prev_index = None
     cur_index = None
     for i in range(len(window_list)):
-        if (window_list[i]["focused"] == True):
+        if window_list[i]["focused"] is True:
             cur_index = i
             next_index = i+1
             prev_index = i-1
             break
 
-    next_id = None
     if next_index == len(window_list):
         next_index = 0
     if prev_index == -1:
@@ -135,6 +137,14 @@ def i3_change_window(window_id):
 
 
 def main(argv=None):
+    """
+    i3t main method
+
+    Kwargs:
+        argv (list): arguments e.g. from ``sys.argv[1:]``
+    Returns:
+        int: nonzero return code on
+    """
     argv_len = len(argv)
     if argv_len == 1:
         cmd = argv[0]
