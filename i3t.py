@@ -114,12 +114,14 @@ def get_i3_window_state():
 
     next_id = window_list[next_index]["window"]
     prev_id = window_list[prev_index]["window"]
+
     state = collections.OrderedDict((
         ('prev', prev_id),
         ('current', cur_index),
         ('next', next_id)))
     log.debug(('state', state))
-    return 0, state
+    return state
+
 
 def i3_change_window(window_id):
     """
@@ -144,9 +146,14 @@ def main(argv=None):
         cmd = 'next'
     else:
         raise ValueError("specify [n]ext or [p]rev")
-    retcode, state = get_i3_window_state()
-    new_window_id = state[cmd]
-    _ = i3_change_window(new_window_id)
+
+    retcode = 1
+    try:
+        state = get_i3_window_state()
+        new_window_id = state[cmd]
+        retcode = i3_change_window(new_window_id)
+    except subprocess.CalledProcessError:
+        retcode = 2
     return retcode
 
 
