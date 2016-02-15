@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 """
-id_list.py -- list i3wm windows, get next window id, wrap/loop around
+i3t.py -- list i3wm windows, get next window id, wrap/loop around
 
+Configuration (``.i3/config``)::
 
+    set $i3t_alt_tab        ~/-dotfiles/src/i3t/i3t.py n
+    set $i3t_alt_shift_tab  ~/-dotfiles/src/i3t/i3t.py p
+    bindsym Mod1+Tab exec   exec $i3t_alt_tab
+    bindsym Mod1+Shift+Tab  exec $i3t_alt_shift_tab
 
 History
 ===========
