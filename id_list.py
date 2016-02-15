@@ -1,6 +1,23 @@
 #!/usr/bin/env python
 """
 id_list.py -- list i3wm windows, get next window id, wrap/loop around
+
+
+
+History
+===========
+
+Version 0.0.1
++++++++++++++++
+* The original source of this script is this answer to "How can I
+  configure i3wm to make Alt+Tab action just like in Windows?" by
+  @michaelschaefer:
+  https://faq.i3wm.org/question/1773/how-can-i-configure-i3wm-to-make-alttab-action-just-like-in-windows/?answer=1807#post-id-1807
+
+License
+=========
+This code is licensed as CC-By-SA 3.0:
+    https://creativecommons.org/licenses/by-sa/3.0/legalcode
 """
 
 
